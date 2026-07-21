@@ -6,8 +6,55 @@
 [ext_resource type="Script" uid="uid://c7oqwexqv30r2" path="res://src/Battle.gd" id="4"]
 [ext_resource type="Resource" path="res://src/Dragon.tres" id="5"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ujk5d"]
+bg_color = Color(0.84313726, 0.09803922, 0.2627451, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gk03p"]
+bg_color = Color(0.22352941, 0.63529414, 0.3019608, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
 [sub_resource type="StyleBoxFlat" id="3"]
 bg_color = Color(0, 0, 0, 0.509804)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqf18"]
+bg_color = Color(0.9372549, 0.07058824, 0.10980392, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kakkj"]
+bg_color = Color(0.20541456, 0.6983315, 0.17965692, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n4y2n"]
+bg_color = Color(0.25882354, 0.2627451, 0.15686275, 1)
+border_width_left = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ooua1"]
+bg_color = Color(0.11601215, 0.5760533, 0.7008235, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
 
 [sub_resource type="StyleBoxFlat" id="4"]
 bg_color = Color(0, 0, 0, 1)
@@ -295,6 +342,8 @@ grow_vertical = 2
 [node name="ProgressBar" type="ProgressBar" parent="EnemyContainer" unique_id=429347186]
 custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ujk5d")
+theme_override_styles/fill = SubResource("StyleBoxFlat_gk03p")
 step = 1.0
 value = 50.0
 show_percentage = false
@@ -304,6 +353,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3")
 text = "HP: 25/50"
@@ -349,6 +400,8 @@ custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_nqf18")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kakkj")
 max_value = 50.0
 step = 1.0
 value = 25.0
@@ -369,6 +422,8 @@ custom_minimum_size = Vector2(0, 16)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxFlat_n4y2n")
+theme_override_styles/fill = SubResource("StyleBoxFlat_ooua1")
 max_value = 50.0
 step = 1.0
 value = 25.0
@@ -379,6 +434,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("3")
 text = "MP: 25/50"

@@ -1,0 +1,4 @@
+res://default_env.tres
+res://src/Battle.tscn
+res://fonts/NES.tres
+res://src/Battle.gd

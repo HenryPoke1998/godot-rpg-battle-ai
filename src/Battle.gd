@@ -1,3 +1,14 @@
+# Battle.gd
+# Controla el flujo principal del combate por turnos.
+# - Mostrar mensajes de batalla
+# - Procesar ataques y defensa
+# - Ejecutar turno enemigo
+# - Detectar victoria/derrota
+# Dependencias:
+# - State.gd (datos del jugador)
+# - BaseEnemy.gd (datos del enemigo)
+# - Scene nodes: Textbox, ActionsPanel, AnimationPlayer
+
 extends Control
 
 signal textbox_closed
@@ -24,6 +35,7 @@ func _ready():
 	$ActionsPanel.show()
 
 func set_health(progress_bar, health, max_health):
+	# Actualiza la barra visual y el texto de HP.
 	progress_bar.value = health
 	progress_bar.max_value = max_health
 	progress_bar.get_node("Label").text = "HP: %d/%d" % [health, max_health]
