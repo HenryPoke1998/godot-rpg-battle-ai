@@ -1,9 +1,1 @@
-res://default_env.tres
-res://src/AIMemory.gd
-res://src/EnemyAI.gd
 res://src/Battle.gd
-res://src/Battle.tscn
-res://fonts/NES.tres
-res://src/AiMemory.gd
-res://src/State.gd
-res://src/BaseEnemy.gd

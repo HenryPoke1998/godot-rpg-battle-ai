@@ -16,8 +16,6 @@ signal textbox_closed
 
 @export var enemy: Resource = null
 
-# Cambiá esto (o conectalo a un selector de dificultad en el menú
-# principal / State.gd) para probar EASY / MEDIUM / HARD.
 @export var ai_difficulty: EnemyAI.Difficulty = EnemyAI.Difficulty.MEDIUM
 
 var current_player_health = 0
@@ -26,8 +24,6 @@ var is_defending = false
 
 
 func _ready():
-	# Si querés que la IA "olvide" entre peleas, dejá esta línea.
-	# Si querés que aprenda del jugador durante todo el juego, comentala.
 	AiMemory.reset()
 
 	set_health($EnemyContainer/ProgressBar, enemy.health, enemy.health)
@@ -94,19 +90,13 @@ func _on_Attack_pressed():
 
 	enemy_turn()
 
-
 func _on_Defend_pressed():
 	_log_player_action("defend")
-
 	is_defending = true
-
 	display_text("You prepare defensively!")
 	await self.textbox_closed
-
 	await get_tree().create_timer(0.25).timeout
-
 	enemy_turn()
-
 
 # Placeholder para cuando tu compañero termine el menú de Skills.
 # Conectá los botones "Skill1"/"Skill2" a estas funciones (o renombralas
@@ -116,28 +106,22 @@ func _on_Skill1_pressed():
 	# TODO: lógica real de la skill 1 cuando esté implementada.
 	enemy_turn()
 
-
 func _on_Skill2_pressed():
 	_log_player_action("skill_2")
 	# TODO: lógica real de la skill 2 cuando esté implementada.
 	enemy_turn()
 
-
 func _log_player_action(action_name: String) -> void:
 	var hp_pct = float(current_player_health) / float(State.max_health)
 	AiMemory.log_action(action_name, hp_pct)
 
-
 func _handle_victory() -> void:
 	display_text("%s was defeated!" % enemy.name)
 	await self.textbox_closed
-
 	$AnimationPlayer.play("enemy_died")
 	await $AnimationPlayer.animation_finished
-
 	await get_tree().create_timer(0.25).timeout
 	get_tree().quit()
-
 
 # ---------------------------------------------------------------------
 # Turno del enemigo (decidido por EnemyAI en base al historial del jugador)
@@ -145,7 +129,6 @@ func _handle_victory() -> void:
 func enemy_turn():
 	var player_hp_pct = float(current_player_health) / float(State.max_health)
 	var enemy_hp_pct = float(current_enemy_health) / float(enemy.health)
-
 	var decision = EnemyAI.decide_action(
 		ai_difficulty,
 		player_hp_pct,
@@ -175,7 +158,6 @@ func enemy_turn():
 		return
 
 	$ActionsPanel.show()
-
 
 func _enemy_do_attack() -> void:
 	if is_defending:
