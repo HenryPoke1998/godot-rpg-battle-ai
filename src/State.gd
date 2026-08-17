@@ -1,3 +1,4 @@
+#state.gd
 extends Node
 
 var max_health = 200
