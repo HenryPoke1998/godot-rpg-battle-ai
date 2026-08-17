@@ -518,6 +518,58 @@ theme_override_styles/pressed = SubResource("5")
 theme_override_styles/hover = SubResource("5")
 text = "Run"
 
+[node name="SkillsPanel" type="HBoxContainer" parent="ActionsPanel" unique_id=1308240421]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 33.0
+offset_right = 284.0
+offset_bottom = 51.0
+
+[node name="GolpeCertero" type="Button" parent="ActionsPanel/SkillsPanel" unique_id=1607830738]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("4")
+theme_override_styles/pressed = SubResource("5")
+theme_override_styles/hover = SubResource("5")
+text = "Golpe Certero"
+
+[node name="SuperReflejo" type="Button" parent="ActionsPanel/SkillsPanel" unique_id=1120206084]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("4")
+theme_override_styles/pressed = SubResource("5")
+theme_override_styles/hover = SubResource("5")
+text = "Super Reflejo"
+
+[node name="CuracionMenor" type="Button" parent="ActionsPanel/SkillsPanel" unique_id=1491727796]
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 0
+mouse_default_cursor_shape = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("4")
+theme_override_styles/pressed = SubResource("5")
+theme_override_styles/hover = SubResource("5")
+text = "Curacion Menor"
+
 [node name="Textbox" type="Panel" parent="." unique_id=2011976480]
 visible = false
 layout_mode = 0
@@ -559,6 +611,9 @@ libraries/ = SubResource("AnimationLibrary_abjmv")
 anchor_mode = 0
 
 [connection signal="pressed" from="ActionsPanel/Actions/Attack" to="." method="_on_Attack_pressed"]
-[connection signal="pressed" from="ActionsPanel/Actions/Skills" to="." method="_on_Attack_pressed"]
+[connection signal="pressed" from="ActionsPanel/Actions/Skills" to="." method="_on_Skills_pressed"]
 [connection signal="pressed" from="ActionsPanel/Actions/Defend" to="." method="_on_Defend_pressed"]
 [connection signal="pressed" from="ActionsPanel/Actions/Run" to="." method="_on_Run_pressed"]
+[connection signal="pressed" from="ActionsPanel/SkillsPanel/GolpeCertero" to="." method="_on_GolpeCertero_pressed"]
+[connection signal="pressed" from="ActionsPanel/SkillsPanel/SuperReflejo" to="." method="_on_SuperReflejo_pressed"]
+[connection signal="pressed" from="ActionsPanel/SkillsPanel/CuracionMenor" to="." method="_on_CuracionMenor_pressed"]
