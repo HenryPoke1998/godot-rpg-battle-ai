@@ -1,4 +1,4 @@
-#baseEnemy.gd
+#BaseEnemy.gd
 extends Resource
 
 @export var name: String = "Enemy"
