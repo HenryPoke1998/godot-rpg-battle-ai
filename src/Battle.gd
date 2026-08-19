@@ -1,15 +1,5 @@
 # Battle.gd
-# Controla el flujo principal del combate por turnos.
-# - Mostrar mensajes de batalla
-# - Procesar ataques y defensa
-# - Ejecutar turno enemigo (decidido por EnemyAI)
-# - Detectar victoria/derrota
-# Dependencias:
-# - State.gd (datos del jugador, autoload)
-# - AIMemory.gd (historial de acciones del jugador, autoload)
-# - EnemyAI.gd (lógica de decisión del enemigo)
-# - BaseEnemy.gd (datos del enemigo)
-# - Scene nodes: Textbox, ActionsPanel, AnimationPlayer
+
 extends Control
 
 signal textbox_closed
@@ -26,6 +16,8 @@ var current_player_mp = 0
 var is_reflex_active = false
 
 func _ready():
+	ai_difficulty = State.selected_difficulty  # <-- toma lo que eligió el jugador
+
 	AiMemory.reset()
 
 	set_health($EnemyContainer/ProgressBar, enemy.health, enemy.health)
@@ -47,7 +39,6 @@ func _ready():
 
 
 func set_health(progress_bar, health, max_health):
-	# Actualiza la barra visual y el texto de HP.
 	progress_bar.value = health
 	progress_bar.max_value = max_health
 	progress_bar.get_node("Label").text = "HP: %d/%d" % [health, max_health]
@@ -69,10 +60,6 @@ func display_text(text):
 	$Textbox.show()
 	$Textbox/Label.text = text
 
-
-# ---------------------------------------------------------------------
-# Turno del jugador
-# ---------------------------------------------------------------------
 func _on_Run_pressed():
 	display_text("Got away safely!")
 	await self.textbox_closed
@@ -85,8 +72,6 @@ func _on_Attack_pressed():
 
 	display_text("You swing your piercing sword!")
 	await self.textbox_closed
-
-	# El dragón está defendiendo
 	if is_enemy_defending:
 		is_enemy_defending = false
 
@@ -96,7 +81,6 @@ func _on_Attack_pressed():
 		enemy_turn()
 		return
 
-	# El dragón NO está defendiendo → recibe daño normalmente
 	current_enemy_health = max(0, current_enemy_health - State.damage)
 	set_health($EnemyContainer/ProgressBar, current_enemy_health, enemy.health)
 
@@ -117,19 +101,6 @@ func _on_Defend_pressed():
 	display_text("You prepare defensively!")
 	await self.textbox_closed
 	await get_tree().create_timer(0.25).timeout
-	enemy_turn()
-
-# Placeholder para cuando tu compañero termine el menú de Skills.
-# Conectá los botones "Skill1"/"Skill2" a estas funciones (o renombralas
-# según cómo las llame él) y ajustá el daño/costo de MP según corresponda.
-func _on_Skill1_pressed():
-	_log_player_action("skill_1")
-	# TODO: lógica real de la skill 1 cuando esté implementada.
-	enemy_turn()
-
-func _on_Skill2_pressed():
-	_log_player_action("skill_2")
-	# TODO: lógica real de la skill 2 cuando esté implementada.
 	enemy_turn()
 
 func _log_player_action(action_name: String) -> void:
@@ -165,11 +136,15 @@ func enemy_turn():
 		"skill_1":
 			display_text("%s uses a special attack!" % enemy.name)
 			await self.textbox_closed
-			await _enemy_do_attack()
+			await _enemy_do_attack(1.2, false)  # un poco más fuerte, aún bloqueable
 		"skill_2":
+			display_text("%s breaks your defense and attacks!" % enemy.name)
+			await self.textbox_closed
+			await _enemy_do_attack(1.0, true)  # ignora la defensa
+		"skill_3":
 			display_text("%s unleashes a powerful attack!" % enemy.name)
 			await self.textbox_closed
-			await _enemy_do_attack()
+			await _enemy_do_attack(1.8, true)  # golpe fuerte, ignora defensa
 		_:  # "attack" por defecto
 			display_text("%s launches at you fiercely!" % enemy.name)
 			await self.textbox_closed
@@ -181,8 +156,9 @@ func enemy_turn():
 
 	$ActionsPanel.show()
 
-func _enemy_do_attack() -> void:
-	if is_defending:
+
+func _enemy_do_attack(damage_multiplier: float = 1.0, ignore_defense: bool = false) -> void:
+	if is_defending and not ignore_defense:
 		is_defending = false
 		$AnimationPlayer.play("mini_shake")
 		await $AnimationPlayer.animation_finished
@@ -190,13 +166,18 @@ func _enemy_do_attack() -> void:
 		await self.textbox_closed
 		return
 
+	if is_defending and ignore_defense:
+		is_defending = false
+		display_text("¡Tu defensa no fue suficiente!")
+		await self.textbox_closed
+
 	if is_reflex_active:
 		is_reflex_active = false
-		
+
 		if randf() < 0.75: # 75% de probabilidad de esquivar
 			$AnimationPlayer.play("mini_shake")
 			await $AnimationPlayer.animation_finished
-			
+
 			display_text("¡Tu Super Reflejo te permitió esquivar el ataque!")
 			await self.textbox_closed
 			return
@@ -204,8 +185,8 @@ func _enemy_do_attack() -> void:
 			display_text("¡Intentaste esquivar, pero el ataque te alcanzó de todas formas!")
 			await self.textbox_closed
 
-	# Ataque normal / ataque que no pudo esquivar
-	current_player_health = max(0, current_player_health - enemy.damage)
+	var final_damage = int(enemy.damage * damage_multiplier)
+	current_player_health = max(0, current_player_health - final_damage)
 	set_health(
 		$PlayerPanel/PlayerData/ProgressBar,
 		current_player_health,
@@ -214,10 +195,9 @@ func _enemy_do_attack() -> void:
 
 	$AnimationPlayer.play("shake")
 	await $AnimationPlayer.animation_finished
-	
-	display_text("%s dealt %d damage!" % [enemy.name, enemy.damage])
-	await self.textbox_closed
 
+	display_text("%s dealt %d damage!" % [enemy.name, final_damage])
+	await self.textbox_closed
 func _handle_defeat() -> void:
 	display_text("You were defeated...")
 	await self.textbox_closed

@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://c0qwv3ceubyq8"]
+
+[ext_resource type="Script" uid="uid://bq3voptsx1bjq" path="res://src/DifficultySelect.gd" id="1_oj1jb"]
+
+[node name="DifficultySelect" type="Node2D" unique_id=338519445]
+script = ExtResource("1_oj1jb")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1701706]
+offset_right = 328.0
+offset_bottom = 244.0
+
+[node name="DificilBTN" type="Button" parent="VBoxContainer" unique_id=1127626136]
+layout_mode = 2
+text = "DIFICL"
+
+[node name="MedioBTN" type="Button" parent="VBoxContainer" unique_id=1504066925]
+layout_mode = 2
+text = "MEDIO"
+
+[node name="FacilBTN" type="Button" parent="VBoxContainer" unique_id=639186679]
+layout_mode = 2
+text = "Facil"
+
+[connection signal="pressed" from="VBoxContainer/DificilBTN" to="." method="_on_dificil_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/DificilBTN" to="." method="_on_DificilBTN_pressed"]
+[connection signal="pressed" from="VBoxContainer/MedioBTN" to="." method="_on_medio_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/MedioBTN" to="." method="_on_MedioBTN_pressed"]
+[connection signal="pressed" from="VBoxContainer/FacilBTN" to="." method="_on_FacilBTN_pressed"]

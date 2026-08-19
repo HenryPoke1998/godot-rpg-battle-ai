@@ -1,32 +1,16 @@
-# AIMemory.gd
-# Autoload (Singleton). Registra el historial de acciones del jugador
-# durante el combate actual, para que EnemyAI.gd pueda analizarlo.
-#
-# Configuración: Proyecto > Ajustes del Proyecto > Autoload > agregar este
-# script con el nombre "AIMemory".
+#AiMemory.gd
 extends Node
 
-# Historial completo de la pelea actual, en orden cronológico.
-# Ejemplo: ["attack", "attack", "defend", "skill_1", "attack"]
-var action_history: Array[String] = []
-
-# Guarda la vida del jugador en el momento de cada acción (para detectar
-# "el jugador se cura/defiende cuando su HP baja de X%").
-var health_at_action: Array[float] = []
-
+var action_history: Array[String] = [] # aca se guard el historial de acciones
+var health_at_action: Array[float] = [] # aca se guarda la vida del jugador 
 
 func log_action(action_name: String, player_health_percent: float = -1.0) -> void:
 	action_history.append(action_name)
 	health_at_action.append(player_health_percent)
 
-
-func reset() -> void:
-	# Llamar al iniciar cada combate nuevo, si NO querés que la IA
-	# recuerde peleas anteriores. Si SÍ querés que aprenda entre
-	# batallas (persistente), simplemente no llames a reset().
+func reset() -> void: # limpia los valores despues de cada combate 
 	action_history.clear()
 	health_at_action.clear()
-
 
 func get_last_actions(n: int) -> Array[String]:
 	if action_history.is_empty():
@@ -36,8 +20,6 @@ func get_last_actions(n: int) -> Array[String]:
 
 
 func get_frequency(action_name: String, window: int = -1) -> float:
-	# Devuelve qué fracción (0.0 a 1.0) de las acciones recientes fue
-	# "action_name". window = -1 significa "todo el historial".
 	var pool = action_history
 	if window > 0:
 		pool = get_last_actions(window)
