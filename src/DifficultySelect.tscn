@@ -1,28 +1,122 @@
 [gd_scene format=3 uid="uid://c0qwv3ceubyq8"]
 
 [ext_resource type="Script" uid="uid://bq3voptsx1bjq" path="res://src/DifficultySelect.gd" id="1_oj1jb"]
+[ext_resource type="Texture2D" uid="uid://cfljgf6t1e60c" path="res://sprites/Background_320x240.png" id="2_rx042"]
+[ext_resource type="Texture2D" uid="uid://ccqx1moqhgpi4" path="res://sprites/Batty.png" id="3_57ht5"]
+[ext_resource type="FontFile" uid="uid://bg7p6xn0cv1qc" path="res://fonts/NESCyrillic.ttf" id="3_rgbc5"]
+[ext_resource type="Texture2D" uid="uid://bwapscfh4123b" path="res://sprites/Dragon.png" id="4_o5lf3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6vxe"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a16t5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_on2to"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cevyn"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_76j4a"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8gxls"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vu3ll"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ncnps"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o66tr"]
 
 [node name="DifficultySelect" type="Node2D" unique_id=338519445]
 script = ExtResource("1_oj1jb")
 
+[node name="TextureRect" type="TextureRect" parent="." unique_id=315394442]
+offset_right = 320.0
+offset_bottom = 240.0
+texture = ExtResource("2_rx042")
+
+[node name="TextureRect2" type="TextureRect" parent="." unique_id=1731949064]
+offset_left = 207.0
+offset_top = 122.0
+offset_right = 307.0
+offset_bottom = 223.0
+texture = ExtResource("3_57ht5")
+
+[node name="TextureRect3" type="TextureRect" parent="." unique_id=1809209221]
+offset_left = -171.0
+offset_top = 10.0
+offset_right = -27.0
+offset_bottom = 106.0
+layout_direction = 3
+texture = ExtResource("4_o5lf3")
+
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1701706]
 offset_right = 328.0
 offset_bottom = 244.0
+alignment = 1
 
 [node name="DificilBTN" type="Button" parent="VBoxContainer" unique_id=1127626136]
 layout_mode = 2
-text = "DIFICL"
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rgbc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_o6vxe")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_a16t5")
+theme_override_styles/hover = SubResource("StyleBoxFlat_on2to")
+text = "DIFICIL"
 
 [node name="MedioBTN" type="Button" parent="VBoxContainer" unique_id=1504066925]
 layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rgbc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_cevyn")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_76j4a")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8gxls")
 text = "MEDIO"
 
 [node name="FacilBTN" type="Button" parent="VBoxContainer" unique_id=639186679]
 layout_mode = 2
-text = "Facil"
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(0.875, 0.875, 0.875, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_rgbc5")
+theme_override_styles/normal = SubResource("StyleBoxFlat_vu3ll")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ncnps")
+theme_override_styles/hover = SubResource("StyleBoxFlat_o66tr")
+text = "FACIL"
 
-[connection signal="pressed" from="VBoxContainer/DificilBTN" to="." method="_on_dificil_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/DificilBTN" to="." method="_on_DificilBTN_pressed"]
-[connection signal="pressed" from="VBoxContainer/MedioBTN" to="." method="_on_medio_btn_pressed"]
+[connection signal="pressed" from="VBoxContainer/DificilBTN" to="." method="_on_dificil_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/MedioBTN" to="." method="_on_MedioBTN_pressed"]
+[connection signal="pressed" from="VBoxContainer/MedioBTN" to="." method="_on_medio_btn_pressed"]
 [connection signal="pressed" from="VBoxContainer/FacilBTN" to="." method="_on_FacilBTN_pressed"]
