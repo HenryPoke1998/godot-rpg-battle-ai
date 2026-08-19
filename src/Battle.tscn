@@ -522,6 +522,7 @@ theme_override_styles/hover = SubResource("5")
 text = "Run"
 
 [node name="SkillsPanel" type="HBoxContainer" parent="ActionsPanel" unique_id=1308240421]
+visible = false
 layout_mode = 0
 offset_left = 38.0
 offset_top = 33.0
