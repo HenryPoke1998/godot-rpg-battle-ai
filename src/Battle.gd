@@ -21,7 +21,7 @@ signal textbox_closed
 var current_player_health = 0
 var current_enemy_health = 0
 var is_defending = false
-
+var is_enemy_defending = false
 
 func _ready():
 	AiMemory.reset()
@@ -76,8 +76,20 @@ func _on_Attack_pressed():
 	display_text("You swing your piercing sword!")
 	await self.textbox_closed
 
+	# El dragón está defendiendo
+	if is_enemy_defending:
+		is_enemy_defending = false
+
+		display_text("%s blocked your attack!" % enemy.name)
+		await self.textbox_closed
+
+		enemy_turn()
+		return
+
+	# El dragón NO está defendiendo → recibe daño normalmente
 	current_enemy_health = max(0, current_enemy_health - State.damage)
 	set_health($EnemyContainer/ProgressBar, current_enemy_health, enemy.health)
+
 	$AnimationPlayer.play("enemy_damaged")
 	await $AnimationPlayer.animation_finished
 
@@ -89,7 +101,6 @@ func _on_Attack_pressed():
 		return
 
 	enemy_turn()
-
 func _on_Defend_pressed():
 	_log_player_action("defend")
 	is_defending = true
@@ -138,6 +149,7 @@ func enemy_turn():
 
 	match decision:
 		"defend":
+			is_enemy_defending = true
 			display_text("%s braces for the next attack!" % enemy.name)
 			await self.textbox_closed
 		"skill_1":
